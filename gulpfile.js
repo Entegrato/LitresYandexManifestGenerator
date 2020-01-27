@@ -58,11 +58,10 @@ task('parse-js', function(callback) {
 	}
 
 	// Ищем все JS файлы и перерабатываем
-	src('./src/static/litres/**/*.js')
+	src(['./src/static/pda_2.0/**/*.js', './src/static/litres/**/*.js'])
 		.on('data', function(file) {
 			fs.appendFile("./out/temp/js-paths.txt", file.path + "\n", function(error){
 				if (error) console.log('Не удалось записать путь файла в дебаг: ', error); // если возникла ошибка
-				// console.log(file.path);
 			});
 		})
 		.on('end', function() {
@@ -78,11 +77,10 @@ task('parse-css', function(callback) {
 	}
 
 	// Ищем все JS файлы и перерабатываем
-	src('./src/static/litres/**/*.css')
+	src(['./src/static/pda_2.0/**/*.css', './src/static/litres/**/*.css'])
 		.on('data', function(file) {
 			fs.appendFile("./out/temp/css-paths.txt", file.path + "\n", function(error){
 				if (error) console.log('Не удалось записать путь файла в дебаг: ', error); // если возникла ошибка
-				// console.log(file.path);
 			});
 		})
 		.on('end', function() {
@@ -98,11 +96,10 @@ task('parse-images', function(callback) {
 	}
 
 	// Ищем все JS файлы и перерабатываем
-	src('./src/static/litres/**/*.+(png|jpg|gif|svg)')
+	src(['./src/static/pda_2.0/**/*.+(png|jpg|gif|svg)', './src/static/litres/**/*.+(png|jpg|gif|svg)'])
 		.on('data', function(file) {
 			fs.appendFile("./out/temp/images-paths.txt", file.path + "\n", function(error){
 				if (error) console.log('Не удалось записать путь файла в дебаг: ', error); // если возникла ошибка
-				// console.log(file.path);
 			});
 		})
 		.on('end', function() {
@@ -114,7 +111,7 @@ task('parse-images', function(callback) {
 task('js-to-global', function(callback) {
 	fs.readFile('./out/temp/js-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать js-paths. Ошибка: ', err);
-		jsLinks = content.match(new RegExp(/\/static\/litres\/.*/gm));
+		jsLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		callback();
 	});
 });
@@ -123,7 +120,7 @@ task('js-to-global', function(callback) {
 task('css-to-global', function(callback) {
 	fs.readFile('./out/temp/css-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать css-paths. Ошибка: ', err);
-		cssLinks = content.match(new RegExp(/\/static\/litres\/.*/gm));
+		cssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		callback();
 	});
 });
@@ -132,13 +129,13 @@ task('css-to-global', function(callback) {
 task('images-to-global', function(callback) {
 	fs.readFile('./out/temp/images-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать images-paths. Ошибка: ', err);
-		imagesLinks = content.match(new RegExp(/\/static\/litres\/.*/gm));
+		imagesLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		callback();
 	});
 });
 
 /** Сохраняем созданный манифест в out папку */
-task('save-final-namifest', function(callback) {
+task('save-final-manifest', function(callback) {
 	// Каждое обновление будем вписывать дату как версию манифеста
 	manifest.yandex.app_version = new Date();
 
@@ -164,5 +161,5 @@ task('default', series(
 	'css-to-global',
 	'parse-images',
 	'images-to-global',
-	'save-final-namifest'
+	'save-final-manifest'
 ));

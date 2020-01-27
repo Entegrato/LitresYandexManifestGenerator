@@ -1,6 +1,5 @@
 const { src, dest } = require('gulp');
 const { task, series, parallel } = require('gulp');
-const through2 = require('through2');
 const fs = require('fs');
 const del = require('del');
 let manifest = {}; // Глобально храним собираемый манифест

@@ -1,0 +1,31 @@
+{
+	"short_name": "ЛитРес",
+	"name": "ЛитРес один клик до книг",
+	"icons": [{
+			"src": "/static/litreslogo128x128.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		},
+		{
+			"src": "/static/litreslogo152x152.png",
+			"type": "image/png",
+			"sizes": "152x152"
+		},
+		{
+			"src": "/static/litreslogo144x144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "/static/litreslogo192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		}
+	],
+	"start_url": "/?utm_source=mobilehomescreen&from=mobilehomescreen",
+	"scope": "/",
+	"display": "standalone",
+	"gcm_sender_id": "121114915918",
+	"theme_color": "#efeee9",
+	"background_color": "#efeee9"
+}

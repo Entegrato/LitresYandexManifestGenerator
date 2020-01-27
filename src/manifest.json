@@ -27,5 +27,16 @@
 	"display": "standalone",
 	"gcm_sender_id": "121114915918",
 	"theme_color": "#efeee9",
-	"background_color": "#efeee9"
+	"background_color": "#efeee9",
+	"yandex": {
+		"manifest_version": 1,
+		"app_id": "3ffs-234fsdf-sdf3r2",
+		"app_version": "__REPLACEBLE__",
+		"app_template_url": "#FFCC00",
+		"cache": {
+			"resources": [
+
+			]
+		}
+	}
 }

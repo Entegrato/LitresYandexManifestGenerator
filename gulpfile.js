@@ -49,7 +49,7 @@ task('parse-initial-manifest', function(callback) {
 	});
 });
 
-/** Парсим манифест из src, будем его апдейтить */
+/** Парсим все JS файлы */
 task('parse-js', function(callback) {
 	// Удалим файл с JS путями
 	if (fs.existsSync('./out/temp/js-paths.txt')) {
@@ -68,7 +68,7 @@ task('parse-js', function(callback) {
 		});
 });
 
-/** Парсим манифест из src, будем его апдейтить */
+/** Парсим все CSS файлы */
 task('parse-css', function(callback) {
 	// Удалим файл с JS путями
 	if (fs.existsSync('./out/temp/css-paths.txt')) {
@@ -87,7 +87,7 @@ task('parse-css', function(callback) {
 		});
 });
 
-/** Парсим манифест из src, будем его апдейтить */
+/** Парсим все картинки */
 task('parse-images', function(callback) {
 	// Удалим файл с JS путями
 	if (fs.existsSync('./out/temp/images-paths.txt')) {
@@ -106,7 +106,7 @@ task('parse-images', function(callback) {
 		});
 });
 
-/**  */
+/** Сохраняем в глобалку ноды массив JS */
 task('js-to-global', function(callback) {
 	fs.readFile('./out/temp/js-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать js-paths. Ошибка: ', err);
@@ -115,7 +115,7 @@ task('js-to-global', function(callback) {
 	});
 });
 
-/**  */
+/** Сохраняем в глобалку ноды массив CSS */
 task('css-to-global', function(callback) {
 	fs.readFile('./out/temp/css-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать css-paths. Ошибка: ', err);
@@ -124,7 +124,7 @@ task('css-to-global', function(callback) {
 	});
 });
 
-/**  */
+/** Сохраняем в глобалку ноды массив картинок */
 task('images-to-global', function(callback) {
 	fs.readFile('./out/temp/images-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать images-paths. Ошибка: ', err);

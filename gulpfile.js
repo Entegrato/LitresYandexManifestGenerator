@@ -144,7 +144,7 @@ task('save-final-namifest', function(callback) {
 
 	// Склеим массивы найденные через RegExp и запишем в массив ресурсов в манифесте
 	let finalLinks = [...jsLinks, ...cssLinks, ...imagesLinks]
-	manifest.yandex.resources = finalLinks;
+	manifest.yandex.cache.resources = finalLinks;
 
 	fs.writeFile('./out/manifest.json', JSON.stringify(manifest, null, '\t'), 'utf-8', function(err) {
 		if (err) console.error('Не удалось записать конечный manifest.json. Ошибка: ', err);

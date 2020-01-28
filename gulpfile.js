@@ -110,7 +110,10 @@ task('parse-images', function(callback) {
 task('js-to-global', function(callback) {
 	fs.readFile('./out/temp/js-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать js-paths. Ошибка: ', err);
-		jsLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		let relativeJsLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		relativeJsLinks.forEach(element => {
+			jsLinks.push('https://pda.litres.ru' + element);
+		});
 		callback();
 	});
 });
@@ -119,7 +122,10 @@ task('js-to-global', function(callback) {
 task('css-to-global', function(callback) {
 	fs.readFile('./out/temp/css-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать css-paths. Ошибка: ', err);
-		cssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		let relativeCssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		relativeCssLinks.forEach(element => {
+			cssLinks.push('https://pda.litres.ru' + element);
+		});
 		callback();
 	});
 });
@@ -128,7 +134,10 @@ task('css-to-global', function(callback) {
 task('images-to-global', function(callback) {
 	fs.readFile('./out/temp/images-paths.txt', 'utf8', function(err, content) {
 		if (err) console.error('Не удалось прочитать images-paths. Ошибка: ', err);
-		imagesLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		let relativeCssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
+		relativeCssLinks.forEach(element => {
+			imagesLinks.push('https://pda.litres.ru' + element);
+		});
 		callback();
 	});
 });

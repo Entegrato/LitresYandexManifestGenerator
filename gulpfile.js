@@ -145,7 +145,8 @@ task('images-to-global', function(callback) {
 /** Сохраняем созданный манифест в out папку */
 task('save-final-manifest', function(callback) {
 	// Каждое обновление будем вписывать дату как версию манифеста
-	manifest.yandex.app_version = new Date();
+	let date = new Date();
+	manifest.yandex.app_version = date.toString().match(new RegExp(/\d/gm)).join('');
 
 	// Склеим массивы найденные через RegExp и запишем в массив ресурсов в манифесте
 	let finalLinks = [...jsLinks, ...cssLinks, ...imagesLinks]

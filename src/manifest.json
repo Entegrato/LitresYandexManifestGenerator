@@ -32,6 +32,7 @@
 	"yandex": {
 		"manifest_version": 1,
 		"app_id": "3ffs-234fsdf-sdf3r2",
+		"client_id": "ff6de82352f14dd9b4221c6cce16791a",
 		"app_version": "__REPLACEBLE__",
 		"app_template_url": "#FFCC00",
 		"splash_screen_color": "#f05a29",

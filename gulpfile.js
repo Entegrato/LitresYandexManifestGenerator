@@ -2,10 +2,16 @@ const { src, dest } = require('gulp');
 const { task, series, parallel } = require('gulp');
 const fs = require('fs');
 const del = require('del');
+const axios = require('axios');
+
 let manifest = {}; // Глобально храним собираемый манифест
 let jsLinks = [];
 let cssLinks = [];
 let imagesLinks = [];
+// Общий массив ссылок перед запросами на сервер
+let mergedLinks = [];
+// Это мы уже будем сохранять в манифест, проверенные файлы статики
+let finalLinks = [];
 
 /** Удаляем старый манифест в папке out если он существует */
 task('prepare', function (callback) {
@@ -142,14 +148,54 @@ task('images-to-global', function(callback) {
 	});
 });
 
+/** Сводим весь спаршенный массив в один, чтобы далее запросить по нему все файлы статики на сервере и проверить что они есть */
+task('merge-finded-links', function(callback) {
+	// Склеим массивы найденные через RegExp и запишем в массив непроверенных на 404 ресурсов
+	mergedLinks = [...jsLinks, ...cssLinks, ...imagesLinks]
+	callback();
+});
+
+/** Чекаем рекурсивно каждый файл в предварительном списке, если 200 0 добавляем в финальный список. Массив кончится - отдадим управление новому таску */
+task('check-status-on-server', function(callback) {
+	var maxCount = [...mergedLinks].length;
+	var counter = 0;
+
+	requestFileRecirsive([...mergedLinks]); // Важно сделать копию массива иначе будем из JSON убирать итемы
+
+	function requestFileRecirsive(items, sid) {
+		if (items.length === 0) {
+			console.log('Все Properties сохранены в базе.');
+			return callback();
+		}
+
+		var item = items.pop();
+
+		axios({
+			url: item,
+			method: 'GET',
+			responseType: 'text'
+		})
+		.then(function (response) {
+			counter++;
+			console.log(counter + ' / ' + maxCount + ' Добавлен: ', item);
+
+			finalLinks.push(item); // Добавим в финальынй массив
+			requestFileRecirsive(items);
+		})
+		.catch(function (error) {
+			counter++;
+			console.log(counter + ' / ' + maxCount + ' НЕ добавлен итем: ', item, error.response.status, error.response.statusText);
+
+			requestFileRecirsive(items);
+		});
+	}
+});
+
 /** Сохраняем созданный манифест в out папку */
 task('save-final-manifest', function(callback) {
 	// Каждое обновление будем вписывать дату как версию манифеста
 	let date = new Date();
 	manifest.yandex.app_version = date.toString().match(new RegExp(/\d/gm)).join('').substring(2,11);
-
-	// Склеим массивы найденные через RegExp и запишем в массив ресурсов в манифесте
-	let finalLinks = [...jsLinks, ...cssLinks, ...imagesLinks]
 	manifest.yandex.cache.resources = finalLinks;
 
 	fs.writeFile('./out/manifest.json', JSON.stringify(manifest, null, '\t'), 'utf-8', function(err) {
@@ -170,5 +216,7 @@ task('default', series(
 	'css-to-global',
 	'parse-images',
 	'images-to-global',
+	'merge-finded-links',
+	'check-status-on-server',
 	'save-final-manifest'
 ));

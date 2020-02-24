@@ -214,8 +214,8 @@ task('default', series(
 	'js-to-global',
 	'parse-css',
 	'css-to-global',
-	'parse-images',
-	'images-to-global',
+	// 'parse-images',
+	// 'images-to-global',
 	'merge-finded-links',
 	'check-status-on-server',
 	'save-final-manifest'

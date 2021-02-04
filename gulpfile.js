@@ -142,9 +142,7 @@ task('images-to-global', function(callback) {
 		if (err) console.error('Не удалось прочитать images-paths. Ошибка: ', err);
 		let relativeCssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		relativeCssLinks.forEach(element => {
-			imagesLinks.push('https://www
-					 
-					 .litres.ru' + element);
+			imagesLinks.push('https://www.litres.ru' + element);
 		});
 		callback();
 	});

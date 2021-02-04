@@ -30,7 +30,7 @@
 	"theme_color": "#efeee9",
 	"background_color": "#efeee9",
 	"yandex": {
-		"manifest_version": 1,
+		"manifest_version": 2,
 		"app_id": "3ffs-234fsdf-sdf3r2",
 		"client_id": "ff6de82352f14dd9b4221c6cce16791a",
 		"app_version": "202016041",

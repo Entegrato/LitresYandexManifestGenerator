@@ -118,7 +118,7 @@ task('js-to-global', function(callback) {
 		if (err) console.error('Не удалось прочитать js-paths. Ошибка: ', err);
 		let relativeJsLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		relativeJsLinks.forEach(element => {
-			jsLinks.push('https://pda.litres.ru' + element);
+			jsLinks.push('https://www.litres.ru' + element);
 		});
 		callback();
 	});
@@ -130,7 +130,7 @@ task('css-to-global', function(callback) {
 		if (err) console.error('Не удалось прочитать css-paths. Ошибка: ', err);
 		let relativeCssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		relativeCssLinks.forEach(element => {
-			cssLinks.push('https://pda.litres.ru' + element);
+			cssLinks.push('https://www.litres.ru' + element);
 		});
 		callback();
 	});
@@ -142,7 +142,9 @@ task('images-to-global', function(callback) {
 		if (err) console.error('Не удалось прочитать images-paths. Ошибка: ', err);
 		let relativeCssLinks = content.match(new RegExp(/\/static\/?(litres|pda_2.0)\/.*/gm));
 		relativeCssLinks.forEach(element => {
-			imagesLinks.push('https://pda.litres.ru' + element);
+			imagesLinks.push('https://www
+					 
+					 .litres.ru' + element);
 		});
 		callback();
 	});

@@ -36,7 +36,7 @@
 		"app_version": "202016041",
 		"app_template_url": "#FFCC00",
 		"splash_screen_color": "#ffffff",
-		"base_url": "https://pda.litres.ru",
+		"base_url": "https://www.litres.ru",
 		"cache": {
 			"resources": [
 
